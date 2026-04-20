@@ -17,28 +17,22 @@ export default function Login() {
   const [regPass, setRegPass] = useState("");
   const [regDisplay, setRegDisplay] = useState("");
 
- const handleLogin = async (e: React.FormEvent) => {
+import { useLocation } from "wouter"; // Add this import at the top
+
+export default function Login() {
+  const [, setLocation] = useLocation(); // Add this line inside the component
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      // 1. Create the fake user object from your input state
-      const fakeUser = { 
-        username: loginUser, 
-        displayName: loginUser,
-        avatarUrl: `https://api.dicebear.com/7.x/pixel-art/svg?seed=${loginUser}` 
-      };
-      
-      // 2. Save it to the key we're checking in use-session.ts
-      localStorage.setItem("retro_session_user", JSON.stringify(fakeUser));
-      
-      // 3. Redirect
-      window.location.href = "/home";
-    } catch (err: any) {
-      toast({
-        title: "Login Failed",
-        description: "Something went wrong.",
-        variant: "destructive",
-      });
-    }
+    const fakeUser = { username: loginUser, displayName: loginUser };
+    localStorage.setItem("retro_session_user", JSON.stringify(fakeUser));
+    
+    // Use this instead of window.location.href
+    setLocation("/home"); 
+  };
+  
+  // ... rest of code
+}
   };
 
   const handleRegister = async (e: React.FormEvent) => {
