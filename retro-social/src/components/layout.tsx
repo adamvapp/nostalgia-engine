@@ -34,19 +34,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const totalUnread = inbox?.reduce((sum, c) => sum + c.unreadCount, 0) ?? 0;
 
  const handleLogout = async () => {
-    // 1. Clear the correct key
-    localStorage.removeItem("retro_session_user"); 
-    
-    // 2. Clear any other keys just in case
-    localStorage.removeItem("retro_username");
-    
-    // 3. Optional: Clear query cache
-    queryClient.clear(); 
-    
-    // 4. Send them back to the start
+    localStorage.removeItem("retro_session_user");
+    // Match this to a path in your App.tsx (either "/" or "/login")
     setLocation("/login"); 
   };
-
+  
   if (!user) {
     return <>{children}</>;
   }
