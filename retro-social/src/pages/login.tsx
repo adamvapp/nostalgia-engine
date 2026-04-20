@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 
 export default function Login() {
-  const { login, register, isLoggingIn, isRegistering } = useAuth();
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
 
   const [loginUser, setLoginUser] = useState("");
@@ -17,37 +17,39 @@ export default function Login() {
   const [regPass, setRegPass] = useState("");
   const [regDisplay, setRegDisplay] = useState("");
 
-import { useLocation } from "wouter"; // Add this import at the top
-
-export default function Login() {
-  const [, setLocation] = useLocation(); // Add this line inside the component
+  // Mocking the loading states since we removed useAuth
+  const isLoggingIn = false;
+  const isRegistering = false;
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const fakeUser = { username: loginUser, displayName: loginUser };
-    localStorage.setItem("retro_session_user", JSON.stringify(fakeUser));
-    
-    // Use this instead of window.location.href
-    setLocation("/home"); 
-  };
-  
-  // ... rest of code
-}
+    try {
+      const fakeUser = { 
+        username: loginUser, 
+        displayName: loginUser,
+        avatarUrl: `https://api.dicebear.com/7.x/pixel-art/svg?seed=${loginUser}` 
+      };
+      localStorage.setItem("retro_session_user", JSON.stringify(fakeUser));
+      setLocation("/home");
+    } catch (err: any) {
+      toast({
+        title: "Login Failed",
+        description: "Invalid credentials",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // 1. Use the registration details
       const fakeUser = { 
         username: regUser, 
         displayName: regDisplay || regUser,
         avatarUrl: `https://api.dicebear.com/7.x/pixel-art/svg?seed=${regUser}`
       };
-      
       localStorage.setItem("retro_session_user", JSON.stringify(fakeUser));
-      
-      window.location.href = "/home";
+      setLocation("/home");
     } catch (err: any) {
       toast({
         title: "Registration Failed",
