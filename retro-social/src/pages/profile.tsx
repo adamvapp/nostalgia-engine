@@ -1,5 +1,28 @@
 import { useParams, Link } from "wouter";
-import { useGetUser, useAddBuddy, useRemoveBuddy, useGetBuddyList, getGetBuddyListQueryKey } from "@workspace/api-client-react";
+// REPLACE THE @WORKSPACE IMPORT WITH THESE STUBS:
+const useGetUser = (username: string, options?: any) => ({
+  data: { 
+    username, 
+    displayName: username, 
+    bio: "Welcome to my profile!", 
+    avatarUrl: "", 
+    mood: "Chilling",
+    isOnline: true,
+    lastSeen: new Date().toISOString(),
+    buddyCount: 0,
+    profileSong: "Sandstorm.mp3",
+    location: "The Internet",
+    interests: "Retro tech, CSS, Web dev",
+    createdAt: new Date().toISOString(),
+    profileColor: "#00ffff"
+  },
+  isLoading: false,
+  error: null
+});
+const useAddBuddy = () => ({ mutateAsync: async (args: any) => ({}), isPending: false });
+const useRemoveBuddy = () => ({ mutateAsync: async (args: any) => ({}), isPending: false });
+const useGetBuddyList = (username: string, options?: any) => ({ data: [], isLoading: false });
+const getGetBuddyListQueryKey = (username: string) => ["buddies", username];
 import { useSession } from "@/hooks/use-session";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
