@@ -14,18 +14,13 @@ const useLogout = () => ({
   isPending: false 
 });
 
-// Added this to fix your console error
 const useGetInbox = (username: string, options: any) => ({
-  data: [{ unreadCount: 5 }], // This will show '5' on your IMs tab
+  data: [{ unreadCount: 5 }], 
   isLoading: false
 });
 
-// Added this to fix the logout crash
 const getGetMeQueryKey = () => ["me"];
 // --- STUBS END ---
-
-export function Layout({ children }: { children: React.ReactNode }) {
-  // ... rest of your component code
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { user } = useSession();
