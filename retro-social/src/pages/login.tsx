@@ -23,21 +23,10 @@ export default function Login() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const fakeUser = { 
-        username: loginUser, 
-        displayName: loginUser,
-        avatarUrl: `https://api.dicebear.com/7.x/pixel-art/svg?seed=${loginUser}` 
-      };
-      localStorage.setItem("retro_session_user", JSON.stringify(fakeUser));
-      setLocation("/home");
-    } catch (err: any) {
-      toast({
-        title: "Login Failed",
-        description: "Invalid credentials",
-        variant: "destructive",
-      });
-    }
+    // ... your localStorage logic ...
+    
+    // Use a clean absolute path
+    setLocation("/home"); 
   };
 
   const handleRegister = async (e: React.FormEvent) => {
