@@ -1,6 +1,11 @@
 import { Link, useLocation } from "wouter";
 import { useSession } from "@/hooks/use-session";
-import { useLogout, getGetMeQueryKey, useGetInbox } from "@workspace/api-client-react";
+// 1. Remove the @workspace import and paste these:
+const useGetMe = () => ({ 
+  data: { username: "user", displayName: "User", avatarUrl: "", mood: "" }, 
+  isLoading: false 
+});
+const useLogout = () => ({ mutateAsync: async () => ({}), isPending: false });
 import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 
