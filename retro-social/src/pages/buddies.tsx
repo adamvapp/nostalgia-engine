@@ -1,5 +1,9 @@
 import { useSession } from "@/hooks/use-session";
-import { useGetBuddyList, useListUsers, useAddBuddy, useRemoveBuddy, getGetBuddyListQueryKey } from "@workspace/api-client-react";
+// 1. Remove the @workspace import and paste these:
+const useGetBuddyList = () => ({ data: [], isLoading: false });
+const useGetOnlineUsers = () => ({ data: [], isLoading: false });
+const useRemoveBuddy = () => ({ mutateAsync: async () => ({}), isPending: false });
+const getGetBuddyListQueryKey = (username: string) => ["buddies", username];
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
