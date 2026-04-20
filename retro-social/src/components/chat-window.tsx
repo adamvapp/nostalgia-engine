@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { useGetConversation, useSendMessage, useMarkRead } from "@workspace/api-client-react";
 import { useDM } from "../context/dm-context";
 import { useSession } from "../hooks/use-session";
 
+// Stand-in hooks to replace the missing Replit workspace
+const useGetConversation = (...args: any[]) => ({ data: [], refetch: () => {} });
+const useMarkRead = () => ({ mutate: () => {} });
+const useSendMessage = () => ({ mutate: () => {}, isPending: false });
 interface Props {
   peerUsername: string;
   peerDisplayName: string;
