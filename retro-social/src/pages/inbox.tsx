@@ -1,5 +1,8 @@
 import { useSession } from "@/hooks/use-session";
-import { useGetInbox } from "@workspace/api-client-react";
+// 1. Remove the @workspace import and paste these:
+const useGetConversations = () => ({ data: [], isLoading: false });
+const useGetMe = () => ({ data: { username: "user", displayName: "User" }, isLoading: false });
+const useMarkRead = () => ({ mutate: () => {} });
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { motion } from "framer-motion";
 import { useDM } from "@/context/dm-context";
