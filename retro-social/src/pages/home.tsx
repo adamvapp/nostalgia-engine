@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { useQueryClient } from "@tanstack/react-query";
-import {
+
 // PASTE THIS INSTEAD:
 const useGetMe = () => ({ data: { username: "user", displayName: "User", mood: "" }, isLoading: false });
 const useGetShoutbox = () => ({ data: [], isLoading: false });
@@ -12,6 +12,7 @@ const useGetOnlineUsers = () => ({ data: [], isLoading: false });
 const getGetShoutboxQueryKey = () => ["shoutbox"];
 const useUpdateMood = () => ({ mutateAsync: async () => {}, isPending: false });
 const getGetMeQueryKey = () => ["me"];
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
