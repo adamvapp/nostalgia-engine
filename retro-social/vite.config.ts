@@ -22,6 +22,7 @@ export default defineConfig({
   root: path.resolve(__dirname),
   build: {
     // Standard Vercel output location
+    chunkSizeWarningLimit: 1000, // Raises the limit so it stops complaining
     outDir: "dist",
     emptyOutDir: true,
   },
