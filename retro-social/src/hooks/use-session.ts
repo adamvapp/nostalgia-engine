@@ -1,6 +1,22 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { useGetMe, usePingUser } from "@workspace/api-client-react";
+// 1. Remove the @workspace/api-client-react import and replace with:
+export const useSession = () => {
+  return {
+    user: { 
+      username: "retro_user", 
+      displayName: "Retro Enthusiast",
+      avatarUrl: "" 
+    },
+    isLoading: false,
+    error: null
+  };
+};
+
+export const useLogout = () => ({
+  mutateAsync: async () => ({ success: true }),
+  isPending: false
+});
 
 export function useSession() {
   const { data: user, isLoading, error } = useGetMe({
