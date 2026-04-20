@@ -1,13 +1,31 @@
 import { Link, useLocation } from "wouter";
 import { useSession } from "@/hooks/use-session";
-// 1. Remove the @workspace import and paste these:
+import { useQueryClient } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
+
+// --- STUBS START ---
 const useGetMe = () => ({ 
   data: { username: "user", displayName: "User", avatarUrl: "", mood: "" }, 
   isLoading: false 
 });
-const useLogout = () => ({ mutateAsync: async () => ({}), isPending: false });
-import { useQueryClient } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
+
+const useLogout = () => ({ 
+  mutateAsync: async () => ({}), 
+  isPending: false 
+});
+
+// Added this to fix your console error
+const useGetInbox = (username: string, options: any) => ({
+  data: [{ unreadCount: 5 }], // This will show '5' on your IMs tab
+  isLoading: false
+});
+
+// Added this to fix the logout crash
+const getGetMeQueryKey = () => ["me"];
+// --- STUBS END ---
+
+export function Layout({ children }: { children: React.ReactNode }) {
+  // ... rest of your component code
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { user } = useSession();
