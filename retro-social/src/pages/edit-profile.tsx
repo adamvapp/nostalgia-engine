@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useSession } from "@/hooks/use-session";
-import { useUpdateUser, getGetMeQueryKey } from "@workspace/api-client-react";
+// 1. Remove the @workspace import and paste these:
+const useGetMe = () => ({ data: { username: "user", displayName: "User", bio: "", location: "", interests: "", profileColor: "#00ffff" }, isLoading: false });
+const useUpdateProfile = () => ({ mutateAsync: async (data: any) => ({}), isPending: false });
+const getGetMeQueryKey = () => ["me"];
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
