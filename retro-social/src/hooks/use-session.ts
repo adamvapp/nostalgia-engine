@@ -1,6 +1,5 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
-// 1. Remove the @workspace/api-client-react import and replace with:
+// src/hooks/use-session.ts
+
 export const useSession = () => {
   return {
     user: { 
@@ -18,35 +17,5 @@ export const useLogout = () => ({
   isPending: false
 });
 
-export function useSession() {
-  const { data: user, isLoading, error } = useGetMe({
-    query: {
-      retry: false,
-      staleTime: Infinity,
-    },
-  });
-
-  const pingMutation = usePingUser();
-
-  useEffect(() => {
-    if (user?.username) {
-      localStorage.setItem("retro_username", user.username);
-    } else if (error) {
-      localStorage.removeItem("retro_username");
-    }
-  }, [user, error]);
-
-  // Ping every 30 seconds if logged in
-  useEffect(() => {
-    if (!user?.username) return;
-    const username = user.username;
-
-    const interval = setInterval(() => {
-      pingMutation.mutate({ username });
-    }, 30000);
-
-    return () => clearInterval(interval);
-  }, [user?.username]);
-
-  return { user, isLoading, isAuthenticated: !!user?.username };
-}
+// Ensure there is NO other 'export function useSession' 
+// or 'export const useSession' below this line.
