@@ -1,12 +1,38 @@
 import { useSession } from "@/hooks/use-session";
-// 1. Remove the @workspace import and paste these:
-const useGetConversations = () => ({ data: [], isLoading: false });
-const useGetMe = () => ({ data: { username: "user", displayName: "User" }, isLoading: false });
-const useMarkRead = () => ({ mutate: () => {} });
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { motion } from "framer-motion";
 import { useDM } from "@/context/dm-context";
 import { formatDistanceToNow } from "date-fns";
+
+// --- STUBS START ---
+const useGetMe = () => ({ data: { username: "user", displayName: "User" }, isLoading: false });
+const useMarkRead = () => ({ mutate: () => {} });
+
+// We need this one specifically for line 15 to work
+const useGetInbox = (username: string, options?: any) => ({
+  data: [
+    { 
+      username: "Tom", 
+      displayName: "Tom", 
+      lastMessage: "Yo! Love the new look of the site.", 
+      lastMessageAt: new Date().toISOString(),
+      unreadCount: 2,
+      isOnline: true,
+      profileColor: "#00ffff"
+    },
+    { 
+      username: "Circuit_Ghost", 
+      displayName: "Ghost", 
+      lastMessage: "BRB, getting a Surge soda.", 
+      lastMessageAt: new Date(Date.now() - 3600000).toISOString(),
+      unreadCount: 0,
+      isOnline: false,
+      profileColor: "#ff00ff"
+    }
+  ],
+  isLoading: false 
+});
+// --- STUBS END ---
 
 export default function Inbox() {
   const { user } = useSession();
