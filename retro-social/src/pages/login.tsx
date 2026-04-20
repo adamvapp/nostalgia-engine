@@ -17,15 +17,25 @@ export default function Login() {
   const [regPass, setRegPass] = useState("");
   const [regDisplay, setRegDisplay] = useState("");
 
-  const handleLogin = async (e: React.FormEvent) => {
+ const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await login({ data: { username: loginUser, password: loginPass } });
-      window.location.href = import.meta.env.BASE_URL + "home";
+      // 1. Create the fake user object from your input state
+      const fakeUser = { 
+        username: loginUser, 
+        displayName: loginUser,
+        avatarUrl: `https://api.dicebear.com/7.x/pixel-art/svg?seed=${loginUser}` 
+      };
+      
+      // 2. Save it to the key we're checking in use-session.ts
+      localStorage.setItem("retro_session_user", JSON.stringify(fakeUser));
+      
+      // 3. Redirect
+      window.location.href = "/home";
     } catch (err: any) {
       toast({
         title: "Login Failed",
-        description: err.message || "Invalid credentials",
+        description: "Something went wrong.",
         variant: "destructive",
       });
     }
@@ -34,13 +44,20 @@ export default function Login() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await register({ data: { username: regUser, password: regPass, displayName: regDisplay } });
-      await login({ data: { username: regUser, password: regPass } });
-      window.location.href = import.meta.env.BASE_URL + "home";
+      // 1. Use the registration details
+      const fakeUser = { 
+        username: regUser, 
+        displayName: regDisplay || regUser,
+        avatarUrl: `https://api.dicebear.com/7.x/pixel-art/svg?seed=${regUser}`
+      };
+      
+      localStorage.setItem("retro_session_user", JSON.stringify(fakeUser));
+      
+      window.location.href = "/home";
     } catch (err: any) {
       toast({
         title: "Registration Failed",
-        description: err.message || "Could not create account",
+        description: "Could not create account",
         variant: "destructive",
       });
     }
