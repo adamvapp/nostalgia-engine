@@ -36,3 +36,21 @@ export const useGetBuddyList = () => ({
 });
 
 export const getGetBuddyListQueryKey = (username: string) => ["buddies", username];
+
+// This fixes the "Settings" page
+export const useUpdateProfile = () => ({
+  mutateAsync: async (data: any) => {
+    const current = JSON.parse(localStorage.getItem("retro_session_user") || "{}");
+    localStorage.setItem("retro_session_user", JSON.stringify({ ...current, ...data }));
+  },
+  isPending: false
+});
+
+// This fixes the "Buddies" page
+export const useGetBuddies = () => ({
+  data: [
+    { id: 1, username: "Tom", status: "online", mood: "Classic" },
+    { id: 2, username: "Circuit_Ghost", status: "offline", mood: "Ghosting" }
+  ],
+  isLoading: false
+});
