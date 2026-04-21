@@ -3,6 +3,19 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { useQueryClient } from "@tanstack/react-query";
 
+export const useGetShouts = () => ({
+  data: [
+    { id: 1, user: "System", content: "Welcome to the global circuit!", sentAt: new Date() },
+    { id: 2, user: "Neon", content: "Is anyone else seeing those scanlines?", sentAt: new Date() }
+  ],
+  isLoading: false
+});
+
+export const useGetOnlineCount = () => ({
+  data: { count: 42 }, // Finally, more than 0!
+  isLoading: false
+});
+
 // PASTE THIS INSTEAD:
 const useGetMe = () => ({ data: { username: "user", displayName: "User", mood: "" }, isLoading: false });
 const useGetShoutbox = () => ({ data: [], isLoading: false });
