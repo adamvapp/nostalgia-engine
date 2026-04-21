@@ -33,10 +33,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
   });
   const totalUnread = inbox?.reduce((sum, c) => sum + c.unreadCount, 0) ?? 0;
 
- const handleLogout = async () => {
+const handleLogout = async () => {
+    // We need to clear the exact key use-session.ts looks for
     localStorage.removeItem("retro_session_user");
-    // Match this to a path in your App.tsx (either "/" or "/login")
-    setLocation("/login"); 
+    
+    // Force a hard refresh to the login page to clear React state
+    window.location.href = "/login"; 
   };
   
   if (!user) {
